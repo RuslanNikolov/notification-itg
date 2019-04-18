@@ -1,0 +1,59 @@
+    .notification {
+    position: absolute;
+    z-index: 1000;
+    right: 10vw;
+    bottom: 0;
+    width: 17vw;
+    box-shadow: 0 0px 10px lightgray;
+    border-radius: 10px 10px 0 0;
+    overflow: hidden;
+}
+
+.notification__tab {
+    position: relative;
+    height: 2vw;
+    line-height: 2vw;
+    text-align: center;
+    background-color: #f4f7fc;
+    box-shadow: 0 2px 5px #d6d8db;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.notification__tab:hover {
+    background-color: #eaecef;
+}
+.notification__tab__label {
+    font-size: 1vw;
+    color: #424344;
+    margin: 0;
+}
+.notification__tab__cross {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 1vw;
+}
+.notification__tab__notify-circle {
+    position: absolute;
+    height: 1.3vw;
+    width: 1.3vw;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    right: 1vw;
+    border-radius: 50%;
+    background-color: red;
+}
+.notify-circle__number {
+    color: white;
+    font-weight: bold;
+    line-height: 1.3vw;
+    display: inherit;
+    font-size: 0.7vw;
+}
+
+.notification__messages {
+    height: 17vw;
+    overflow: auto;
+    padding: 0.2vw 0.8vw;
+}

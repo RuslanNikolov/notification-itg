@@ -1,0 +1,22 @@
+.message {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5vw;
+    margin: 0;
+    transition: all .3s;
+}
+.message:not(:last-child){
+   border-bottom: 1px solid lightgray;
+}
+.message:hover {
+    box-shadow: 0 0 5px lightgray;
+}
+.message__time {
+    font-size: 0.7vw;
+    width: 35%;
+}
+.message__text {
+    font-size: 0.8vw;
+    word-wrap: break-word;
+    width: 55%;
+}
