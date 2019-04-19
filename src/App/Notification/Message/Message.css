@@ -1,15 +1,15 @@
 .message {
     display: flex;
     justify-content: space-between;
-    padding: 0.5vw;
+    padding: 1vw;
     margin: 0;
-    transition: all .3s;
+    transition: all .2s;
+}
+.message.unseen > span {
+    font-weight: bold;
 }
 .message:not(:last-child){
    border-bottom: 1px solid lightgray;
-}
-.message:hover {
-    box-shadow: 0 0 5px lightgray;
 }
 .message__time {
     font-size: 0.7vw;

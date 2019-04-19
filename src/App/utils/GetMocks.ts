@@ -1,4 +1,4 @@
-import { IMessage } from '../components/Notification/Message/Message'
+import { IMessage } from '../Notification/Message/Message'
 
 export const getSimpleMessages = () => {
     const date = Date.now();
@@ -16,11 +16,10 @@ export const getSimpleMessages = () => {
 
 export const getMockMessages = (): IMessage[] => {
     const randomMessagesCount: number = Math.floor(Math.random() * 5) + 1
-    const randomTimestamp = Date.now() + Math.floor(Math.random() * 200000) + 1
 
     const mockMessages: IMessage[] = Array(randomMessagesCount).fill('memes').map((str, idx) => ({
         text: str.repeat(idx) + Math.random() * 10000,
-        timestamp: randomTimestamp
+        timestamp: Date.now()
     }))
 
     // Sort by most recent

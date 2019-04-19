@@ -8,14 +8,15 @@ export interface IMessage {
 }
 
 interface IProps {
-  message: IMessage
+  message: IMessage,
+  unseen: boolean
 }
 
 const Message = (props: IProps) => {
   const { text, timestamp } = props.message;
 
   return (
-    <p className="message">
+    <p className={`message ${props.unseen && 'unseen'}`}>
       <span className="message__time" title={getTimeZone(timestamp)}>{getTime(timestamp)}</span>
       <span className="message__text" title={text}>{getText(text)}</span>
     </p>

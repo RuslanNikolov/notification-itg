@@ -1,4 +1,4 @@
-    .notification {
+.notification {
     position: absolute;
     z-index: 1000;
     right: 10vw;
@@ -12,12 +12,14 @@
 .notification__tab {
     position: relative;
     height: 2vw;
-    line-height: 2vw;
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background-color: #f4f7fc;
     box-shadow: 0 2px 5px #d6d8db;
     cursor: pointer;
     transition: all 0.2s;
+    padding: 0 1.5vw;
 }
 .notification__tab:hover {
     background-color: #eaecef;
@@ -27,31 +29,17 @@
     color: #424344;
     margin: 0;
 }
-.notification__tab__cross {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 1vw;
-}
 .notification__tab__notify-circle {
-    position: absolute;
     height: 1.3vw;
     width: 1.3vw;
-    margin: auto;
-    top: 0;
-    bottom: 0;
-    right: 1vw;
+    line-height: 1.3vw;
     border-radius: 50%;
-    background-color: red;
-}
-.notify-circle__number {
+    background-color: #4b89ed;
+    text-align: -webkit-center;
     color: white;
     font-weight: bold;
-    line-height: 1.3vw;
-    display: inherit;
     font-size: 0.7vw;
 }
-
 .notification__messages {
     height: 17vw;
     overflow: auto;
