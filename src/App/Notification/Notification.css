@@ -29,6 +29,12 @@
     color: #424344;
     font-size: 1.2rem;
 }
+.notification__tab__cross {
+    transition: all .15s;
+}
+.notification__tab__cross:hover {
+    transform: scale(1.15);
+}
 .notification__tab__notify-circle {
     text-align: -webkit-center;
     width: 28px;

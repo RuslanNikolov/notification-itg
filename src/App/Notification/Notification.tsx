@@ -59,7 +59,7 @@ const Notification = (props: IProps) => {
             <div className="notification__tab" onClick={onTogglePanelClick}>
                 <h3 className="notification__tab__label">{MESSAGES_LABEL}</h3>
                 {isPanelExpanded
-                    ? <span >✖</span>
+                    ? <span className="notification__tab__cross">✖</span>
                     : <span className="notification__tab__notify-circle">{newMessagesCount}</span>
                 }
             </div>
