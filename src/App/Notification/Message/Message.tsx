@@ -9,14 +9,15 @@ export interface IMessage {
 
 interface IProps {
   message: IMessage,
-  unseen: boolean
+  isHighlighted: boolean
 }
 
 const Message = (props: IProps) => {
   const { text, timestamp } = props.message;
 
   return (
-    <p className={`message ${props.unseen && 'unseen'}`}>
+    //classname domain name here, message is too generic as a name 
+    <p className={`message ${props.isHighlighted ? 'highlighted' : ''}`}> 
       <span className="message__time" title={getTimeZone(timestamp)}>{getTime(timestamp)}</span>
       <span className="message__text" title={text}>{getText(text)}</span>
     </p>

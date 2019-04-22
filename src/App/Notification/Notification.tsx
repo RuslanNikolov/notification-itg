@@ -1,6 +1,5 @@
-import React, { useState, useEffect, memo } from 'react'
+import React, { useState, useEffect, useLayoutEffect, useRef, memo } from 'react'
 import './Notification.css'
-import ChatIcon from './chat.svg'
 
 import { IMessage } from './Message/Message';
 import Message from './Message/Message';
@@ -13,37 +12,58 @@ export interface IProps {
 }
 
 const Notification = (props: IProps) => {
-    const [messages, setMessages] = useState([] as IMessage[])
-    const [timeMessagesClosed, setTimeMessagesClosed] = useState(Date.now())
-    const [unseenMessagesCount, setUnseenMessagesCount] = useState(0)
-    const [messagesExpanded, setMessagesExpanded] = useState(false)
+    const [messages, setMessages] = useState([] as IMessage[]);
+    const [timePanelClosed, setTimePanelClosed] = useState(0);
+    const [newMessagesCount, setNewMessagesCount] = useState(0);
+
+    const [isPanelExpanded, setIsPanelExpanded] = useState(false);
+    const [isUserAtMessagesBottom, setIsUserAtMessagesBottom] = useState(false)
+
+    const messagesRef = useRef(null as any);
 
     useEffect(() => {
-        const newUniqueMessages = removeDuplicatesFromTwoArrays(messages, props.messages)
-
-        setUnseenMessagesCount(prevUnseenMessagesCount => prevUnseenMessagesCount + newUniqueMessages.length);
-        setMessages(prevMessages => [...prevMessages, ...newUniqueMessages])
+        const newUniqueMessages = removeDuplicatesFromTwoArrays(messages, props.messages);
+        setNewMessagesCount(prevCount => prevCount + newUniqueMessages.length);
+        setMessages(prevMessages => [...prevMessages, ...newUniqueMessages]);
+        if (messagesRef.current) {
+            setIsUserAtMessagesBottom(getIsUserAtMessagesBottom())
+        }
     }, [props.messages])
 
-    const toggleMessagesTab = () => {
-        if (messagesExpanded) {
-            setTimeMessagesClosed(Date.now());
-            setUnseenMessagesCount(0);
+    useLayoutEffect(() => {
+        if (isUserAtMessagesBottom) {
+            scrollToMessagesBottom()
         }
-        setMessagesExpanded(prevExpanded => !prevExpanded)
-    }
+    }, [messages])
+
+    useEffect(() => {
+        if (isPanelExpanded) {
+            scrollToMessagesBottom()
+        } else {
+            setTimePanelClosed(Date.now());
+            setNewMessagesCount(0);
+            setIsUserAtMessagesBottom(false)
+        }
+    }, [isPanelExpanded])
+
+    const onTogglePanelClick = (): void => setIsPanelExpanded(prevExpanded => !prevExpanded);
+
+    const scrollToMessagesBottom = (): void => messagesRef.current.scrollTop = messagesRef.current.scrollHeight
+
+    const getIsUserAtMessagesBottom = (): boolean => messagesRef.current.scrollTop === (messagesRef.current.scrollHeight - messagesRef.current.offsetHeight)
 
     return (
         <div className="notification">
-            <div className="notification__tab" onClick={toggleMessagesTab}>
+            <div className="notification__tab" onClick={onTogglePanelClick}>
                 <h3 className="notification__tab__label">{MESSAGES_LABEL}</h3>
-                {messagesExpanded ? <span >✖</span>
-                    : <span className="notification__tab__notify-circle">{unseenMessagesCount}</span>
+                {isPanelExpanded
+                    ? <span >✖</span>
+                    : <span className="notification__tab__notify-circle">{newMessagesCount}</span>
                 }
             </div>
-            {messagesExpanded &&
-                <div className="notification__messages slideInUp animated">
-                    {messages.map((message: IMessage) => <Message message={message} unseen={message.timestamp > timeMessagesClosed} />)}
+            {isPanelExpanded &&
+                <div className="notification__messages slideInUp animated" ref={messagesRef}>
+                    {messages.map((message: IMessage) => <Message message={message} isHighlighted={message.timestamp > timePanelClosed} key={message.timestamp} />)}
                 </div>
             }
         </div>

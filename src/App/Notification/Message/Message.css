@@ -1,22 +1,23 @@
 .message {
     display: flex;
     justify-content: space-between;
-    padding: 1vw;
+    padding: 1vw 0;
     margin: 0;
     transition: all .2s;
 }
-.message.unseen > span {
+.message.highlighted > span {
     font-weight: bold;
 }
 .message:not(:last-child){
-   border-bottom: 1px solid lightgray;
+   border-bottom: 1px solid rgb(235, 232, 232);
 }
 .message__time {
-    font-size: 0.7vw;
+    padding-top: 0.25vw;
     width: 35%;
+    font-size: 0.65vw;
 }
 .message__text {
-    font-size: 0.8vw;
-    word-wrap: break-word;
     width: 55%;
+    word-wrap: break-word;
+    font-size: 0.8vw;
 }

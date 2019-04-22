@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Notification from './Notification/Notification'
 import { getMockMessages } from './utils/GetMocks'
+import { IMessage } from './Notification/Message/Message';
 
 const App = (props: any) => {
-  const [mockMessages, setMockMessages] = useState(getMockMessages())
+  const [mockMessages, setMockMessages] = useState([] as IMessage[])
 
   useEffect(() => {
-    setInterval(() => setMockMessages(getMockMessages()), 6000);
+    setInterval(() => setMockMessages(getMockMessages()), 2000);
   }, [])
 
   return (

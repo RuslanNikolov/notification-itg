@@ -1,47 +1,47 @@
 .notification {
     position: absolute;
-    z-index: 1000;
+    overflow: hidden;
     right: 10vw;
     bottom: 0;
     width: 17vw;
     box-shadow: 0 0px 10px lightgray;
     border-radius: 10px 10px 0 0;
-    overflow: hidden;
+    z-index: 1000;
 }
 
 .notification__tab {
     position: relative;
-    height: 2vw;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 2vw;
+    padding: 0 1.5vw;
     background-color: #f4f7fc;
     box-shadow: 0 2px 5px #d6d8db;
     cursor: pointer;
     transition: all 0.2s;
-    padding: 0 1.5vw;
 }
 .notification__tab:hover {
     background-color: #eaecef;
 }
 .notification__tab__label {
-    font-size: 1vw;
-    color: #424344;
     margin: 0;
+    color: #424344;
+    font-size: 1vw;
 }
 .notification__tab__notify-circle {
+    text-align: -webkit-center;
     height: 1.3vw;
     width: 1.3vw;
-    line-height: 1.3vw;
     border-radius: 50%;
     background-color: #4b89ed;
-    text-align: -webkit-center;
-    color: white;
+    line-height: 1.3vw;
     font-weight: bold;
     font-size: 0.7vw;
+    color: white;
 }
 .notification__messages {
+    padding: 0.2vw 1vw;
     height: 17vw;
     overflow: auto;
-    padding: 0.2vw 0.8vw;
 }
