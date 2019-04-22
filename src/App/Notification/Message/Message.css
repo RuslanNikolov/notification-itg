@@ -1,23 +1,21 @@
 .message {
     display: flex;
     justify-content: space-between;
-    padding: 1vw 0;
-    margin: 0;
-    transition: all .2s;
-}
-.message.highlighted > span {
-    font-weight: bold;
+    padding: 15px 0;
 }
 .message:not(:last-child){
    border-bottom: 1px solid rgb(235, 232, 232);
 }
+.message.highlighted > span {
+    font-weight: bold;
+}
 .message__time {
-    padding-top: 0.25vw;
+    padding-top: 5px;
+    color: rgb(97, 97, 97);
     width: 35%;
-    font-size: 0.65vw;
+    font-size: 0.8rem;
 }
 .message__text {
-    width: 55%;
-    word-wrap: break-word;
-    font-size: 0.8vw;
+    width: 60%;
+    font-size: 0.95rem;
 }

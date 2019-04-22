@@ -8,7 +8,7 @@ const App = (props: any) => {
   const [mockMessages, setMockMessages] = useState([] as IMessage[])
 
   useEffect(() => {
-    setInterval(() => setMockMessages(getMockMessages()), 2000);
+    setInterval(() => setMockMessages(getMockMessages()), 5000);
   }, [])
 
   return (

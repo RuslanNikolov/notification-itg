@@ -5,7 +5,9 @@ import { IMessage } from './Message/Message';
 import Message from './Message/Message';
 import removeDuplicatesFromTwoArrays from '../utils/RemoveDuplicatesFromTwoArrays'
 
-export const MESSAGES_LABEL: string = 'Messages';
+const MESSAGES_LABEL: string = 'Messages';
+// This value resolves the unpredictable browser behaviour of the scroll to bottom functionality (check getIsMessagesBottomScrolled function)
+const BROWSER_SCROLL_RANDOM_OFFSET: number = 2;
 
 export interface IProps {
     messages: IMessage[]
@@ -17,7 +19,7 @@ const Notification = (props: IProps) => {
     const [newMessagesCount, setNewMessagesCount] = useState(0);
 
     const [isPanelExpanded, setIsPanelExpanded] = useState(false);
-    const [isUserAtMessagesBottom, setIsUserAtMessagesBottom] = useState(false)
+    const [isMessagesBottomScrolled, setIsMessagesBottomScrolled] = useState(false)
 
     const messagesRef = useRef(null as any);
 
@@ -26,12 +28,12 @@ const Notification = (props: IProps) => {
         setNewMessagesCount(prevCount => prevCount + newUniqueMessages.length);
         setMessages(prevMessages => [...prevMessages, ...newUniqueMessages]);
         if (messagesRef.current) {
-            setIsUserAtMessagesBottom(getIsUserAtMessagesBottom())
+            setIsMessagesBottomScrolled(getIsMessagesBottomScrolled())
         }
     }, [props.messages])
 
     useLayoutEffect(() => {
-        if (isUserAtMessagesBottom) {
+        if (isMessagesBottomScrolled) {
             scrollToMessagesBottom()
         }
     }, [messages])
@@ -42,7 +44,7 @@ const Notification = (props: IProps) => {
         } else {
             setTimePanelClosed(Date.now());
             setNewMessagesCount(0);
-            setIsUserAtMessagesBottom(false)
+            setIsMessagesBottomScrolled(false)
         }
     }, [isPanelExpanded])
 
@@ -50,7 +52,7 @@ const Notification = (props: IProps) => {
 
     const scrollToMessagesBottom = (): void => messagesRef.current.scrollTop = messagesRef.current.scrollHeight
 
-    const getIsUserAtMessagesBottom = (): boolean => messagesRef.current.scrollTop === (messagesRef.current.scrollHeight - messagesRef.current.offsetHeight)
+    const getIsMessagesBottomScrolled = (): boolean => messagesRef.current.scrollTop >= ((messagesRef.current.scrollHeight - messagesRef.current.offsetHeight) - BROWSER_SCROLL_RANDOM_OFFSET)
 
     return (
         <div className="notification">
