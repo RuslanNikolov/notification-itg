@@ -17,7 +17,7 @@ export const getSimpleMessages = () => {
 }
 
 export const getMockMessages = (): IMessage[] => {
-    const randomMessagesCount: number = Math.floor(Math.random() * 8) + 1
+    const randomMessagesCount: number = Math.floor(Math.random() * 10) + 1
 
     const mockMessages: IMessage[] = Array(randomMessagesCount).fill('memes').map((str, idx) => ({
         text:  loremIpsum({count: idx, units: 'words'}),

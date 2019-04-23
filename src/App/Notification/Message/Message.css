@@ -1,21 +1,33 @@
-.message {
-    display: flex;
-    justify-content: space-between;
-    padding: 15px 0;
+.notification-message {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    position: relative;
 }
-.message:not(:last-child){
-   border-bottom: 1px solid rgb(235, 232, 232);
+.notification-message:not(:last-child) {
+    border-bottom: 1px solid rgb(0, 0, 0, 0.2);
 }
-.message.highlighted > span {
-    font-weight: bold;
+.notification-message.highlighted {
+    background-color: rgb(47, 117, 223);
+    color: #fff;
 }
-.message__time {
-    padding-top: 5px;
-    color: rgb(97, 97, 97);
+.notification-message__time {
+    display: inline-block;
     width: 35%;
-    font-size: 0.8rem;
+    padding-right: 10px;
 }
-.message__text {
+.notification-message__text {
+    word-break: break-word;
     width: 60%;
-    font-size: 0.95rem;
+    float: right;
+    display: block;
+}
+
+.notification-message__text:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+    zoom: 1;
 }

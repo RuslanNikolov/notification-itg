@@ -4,6 +4,7 @@ import './Notification.css'
 import { IMessage } from './Message/Message';
 import Message from './Message/Message';
 import removeDuplicatesFromTwoArrays from '../utils/RemoveDuplicatesFromTwoArrays'
+import { getCountDisplay } from '../utils/StringManipulations'
 
 const MESSAGES_LABEL: string = 'Messages';
 // This value resolves the unpredictable browser behaviour of the scroll to bottom functionality (check getIsMessagesBottomScrolled function)
@@ -56,15 +57,15 @@ const Notification = (props: IProps) => {
 
     return (
         <div className="notification">
-            <div className="notification__tab" onClick={onTogglePanelClick}>
-                <h3 className="notification__tab__label">{MESSAGES_LABEL}</h3>
+            <div className="notification__panel" onClick={onTogglePanelClick}>
+                <h3 className="notification__panel__label">{MESSAGES_LABEL}</h3>
                 {isPanelExpanded
-                    ? <span className="notification__tab__cross">✖</span>
-                    : <span className="notification__tab__notify-circle">{newMessagesCount}</span>
+                    ? <span className="notification__panel__cross">✖</span>
+                    : <span className="notification__panel__notify-circle">{getCountDisplay(newMessagesCount)}</span>
                 }
             </div>
             {isPanelExpanded &&
-                <div className="notification__messages slideInUp animated" ref={messagesRef}>
+                <div className="notification__messages" ref={messagesRef}>
                     {messages.map((message: IMessage) => <Message message={message} isHighlighted={message.timestamp > timePanelClosed} key={message.timestamp} />)}
                 </div>
             }
