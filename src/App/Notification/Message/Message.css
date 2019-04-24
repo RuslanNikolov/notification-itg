@@ -8,7 +8,7 @@
    background: #fafafa;
 }
 
-.notification-message.highlighted {
+.notification-message.highlighted {z
    border-left: 4px solid #4b89ed;
 }
 
