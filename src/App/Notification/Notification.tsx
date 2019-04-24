@@ -3,8 +3,7 @@ import './Notification.css'
 
 import { IMessage } from './Message/Message';
 import Message from './Message/Message';
-import removeDuplicatesFromTwoArrays from '../utils/RemoveDuplicatesFromTwoArrays'
-import { getCountDisplay } from '../utils/StringManipulations'
+import { removeDuplicatesFromTwoArrays } from '../utils'
 
 const MESSAGES_LABEL: string = 'Messages';
 // This value resolves the unpredictable browser behaviour of the scroll to bottom functionality (check getIsMessagesBottomScrolled function)
@@ -55,13 +54,15 @@ const Notification = (props: IProps) => {
 
     const getIsMessagesBottomScrolled = (): boolean => messagesRef.current.scrollTop >= ((messagesRef.current.scrollHeight - messagesRef.current.offsetHeight) - BROWSER_SCROLL_RANDOM_OFFSET)
 
+    const formatMessageCount = (count: number): string => count < 1000 ? `${count}` : `${Math.floor(count / 1000)}K`
+
     return (
         <div className="notification">
             <div className="notification__panel" onClick={onTogglePanelClick}>
                 <h3 className="notification__panel__label">{MESSAGES_LABEL}</h3>
                 {isPanelExpanded
                     ? <span className="notification__panel__cross">✖</span>
-                    : <span className="notification__panel__notify-circle">{getCountDisplay(newMessagesCount)}</span>
+                    : <span className="notification__panel__notify-circle">{formatMessageCount(newMessagesCount)}</span>
                 }
             </div>
             {isPanelExpanded &&
