@@ -1,34 +1,34 @@
 .notification-message {
-    padding: 7px 10px;
-    font-size: 0.9rem;
-    margin: 4px 2px;
+   font-size: .9rem;
+   margin: 4px 2px;
+   padding: 7px 10px;
 }
 
 .notification-message:nth-child(2n) {
-    background: #fafafa;
+   background: #fafafa;
 }
 
 .notification-message.highlighted {
-    border-left: 4px solid #4b89ed;
+   border-left: 4px solid #4b89ed;
 }
 
 .notification-message__time {
-    padding-right: 10px;
-    float: left;
-    width: 30%;
-    color: #666;
+   float: left;
+   width: 30%;
+   padding-right: 10px;
+   color: #666;
 }
 
 .notification-message__text {
-    float: right;
-    width: 69%;
-    word-wrap: break-word;
+   float: right;
+   width: 69%;
+   word-wrap: break-word;
 }
 
 .notification-message::after {
-    content: ".";
-    visibility: hidden;
-    display: block;
-    height: 0;
-    clear: both;
+   display: block;
+   visibility: hidden;
+   clear: both;
+   height: 0;
+   content: '.';
 }
