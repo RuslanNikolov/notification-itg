@@ -1,14 +1,14 @@
 .notification-message {
-   font-size: .9rem;
    margin: 4px 2px;
    padding: 7px 10px;
+   font-size: .9rem;
 }
 
 .notification-message:nth-child(2n) {
    background: #fafafa;
 }
 
-.notification-message.highlighted {z
+.notification-message.highlighted {
    border-left: 4px solid #4b89ed;
 }
 
