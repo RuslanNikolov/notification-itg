@@ -6,8 +6,7 @@ import Message from './Message/Message';
 import { removeDuplicatesFromTwoArrays } from '../utils'
 
 const MESSAGES_LABEL: string = 'Messages';
-// This value resolves the unpredictable browser behaviour of the scroll to bottom functionality (check getIsMessagesBottomScrolled function)
-const BROWSER_SCROLL_RANDOM_OFFSET: number = 2;
+const BROWSER_SCROLL_RANDOM_OFFSET: number = 2; // Resolves unpredictable scroll to bottom browser behaviour
 
 export interface IProps {
     messages: IMessage[]

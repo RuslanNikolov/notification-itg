@@ -24,6 +24,9 @@
     "eject": "react-scripts eject",
     "csscomb": "csscomb src"
   },
+  "pre-commit": [
+    "csscomb"
+  ],
   "eslintConfig": {
     "extends": "react-app"
   },
