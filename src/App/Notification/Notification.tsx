@@ -14,48 +14,49 @@ export interface IProps {
 
 const Notification = (props: IProps) => {
     const [messages, setMessages] = useState([] as IMessage[]);
-    const [timePanelClosed, setTimePanelClosed] = useState(0);
     const [newMessagesCount, setNewMessagesCount] = useState(0);
 
     const [isPanelExpanded, setIsPanelExpanded] = useState(false);
-    const [isMessagesBottomScrolled, setIsMessagesBottomScrolled] = useState(false)
+    const [isPanelBottomScrolled, setIsPanelBottomScrolled] = useState(false)
+    const [timePanelClosed, setTimePanelClosed] = useState(0);
+    const [panel, setPanel] = useState({
+        timeClosed: 0,
+        isExpanded: false,
+        isPaneScrolledBottom: false
+    })
 
-    const messagesRef = useRef(null as any);
+    const panelRef = useRef(null as any);
 
     useEffect(() => {
         const newUniqueMessages = removeDuplicatesFromTwoArrays(messages, props.messages);
         setNewMessagesCount(prevCount => prevCount + newUniqueMessages.length);
         setMessages(prevMessages => [...prevMessages, ...newUniqueMessages]);
-        if (messagesRef.current) {
-            setIsMessagesBottomScrolled(getIsMessagesBottomScrolled())
+        if (panelRef.current) {
+            setIsPanelBottomScrolled(checkIsPanelBottomScrolled(panelRef))
         }
     }, [props.messages])
 
     useLayoutEffect(() => {
-        if (isMessagesBottomScrolled) {
-            scrollToMessagesBottom()
+        if (isPanelBottomScrolled) {
+            scrollToPanelBottom(panelRef)
         }
     }, [messages])
 
     useEffect(() => {
         if (isPanelExpanded) {
-            scrollToMessagesBottom()
+            scrollToPanelBottom(panelRef)
         } else {
             setTimePanelClosed(Date.now());
             setNewMessagesCount(0);
-            setIsMessagesBottomScrolled(false)
+            setIsPanelBottomScrolled(false)
         }
     }, [isPanelExpanded])
 
-    const onTogglePanelClick = (): void => setIsPanelExpanded(prevExpanded => !prevExpanded);
-
-    const scrollToMessagesBottom = (): void => messagesRef.current.scrollTop = messagesRef.current.scrollHeight
-
-    const getIsMessagesBottomScrolled = (): boolean => messagesRef.current.scrollTop >= ((messagesRef.current.scrollHeight - messagesRef.current.offsetHeight) - BROWSER_SCROLL_RANDOM_OFFSET)
+    const onPanelToggleClick = (): void => setIsPanelExpanded(prevExpanded => !prevExpanded);
 
     return (
         <div className="notification">
-            <div className="notification__panel" onClick={onTogglePanelClick}>
+            <div className="notification__panel" onClick={onPanelToggleClick}>
                 <h3 className="notification__panel__label">{MESSAGES_LABEL}</h3>
                 {isPanelExpanded
                     ? <span className="notification__panel__cross">✖</span>
@@ -63,7 +64,7 @@ const Notification = (props: IProps) => {
                 }
             </div>
             {isPanelExpanded &&
-                <div className="notification__messages" ref={messagesRef}>
+                <div className="notification__messages" ref={panelRef}>
                     {messages.map((message: IMessage) => <Message message={message} isHighlighted={message.timestamp > timePanelClosed} key={message.timestamp} />)}
                 </div>
             }
@@ -71,13 +72,13 @@ const Notification = (props: IProps) => {
     )
 }
 
+const scrollToPanelBottom = (panelRef: any): void => panelRef.current.scrollTop = panelRef.current.scrollHeight
+
+const checkIsPanelBottomScrolled = (panelRef: any): boolean => panelRef.current.scrollTop >= ((panelRef.current.scrollHeight - panelRef.current.offsetHeight) - BROWSER_SCROLL_RANDOM_OFFSET)
+
 const formatMessageCount = (count: number): string => {
-    if (count < 1000) {
-        return `${count}`
-    } else {
-        const [thousands, hundreds] = [Math.floor(count / 1000), Math.floor(count / 100 % 10)]
-        return `${thousands}.${hundreds}K`
-    }
+    const [thousands, hundreds] = [Math.floor(count / 1000), Math.floor(count / 100 % 10)]
+    return count < 1000 ? `${count}` : `${thousands}.${hundreds}K`
 }
 
 export default memo(Notification)

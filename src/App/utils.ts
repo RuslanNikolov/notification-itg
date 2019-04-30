@@ -3,7 +3,7 @@ import { IMessage} from './Notification/Message/Message'
 import { loremIpsum } from 'lorem-ipsum'
 
 export const getMockMessages = (): IMessage[] => {
-    const randomMessagesCount: number = Math.floor(Math.random() * 300) + 100
+    const randomMessagesCount: number = Math.floor(Math.random() * 3) + 1
 
     const mockMessages: IMessage[] = Array(randomMessagesCount).fill('memes').map((str, idx) => ({
         text:  loremIpsum({count: idx, units: 'words'}),
