@@ -15,7 +15,7 @@ export interface IProps {
 const Notification = (props: IProps) => {
     const [messages, setMessages] = useState([] as IMessage[]);
     const [newMessagesCount, setNewMessagesCount] = useState(0);
-
+     
     const [panel, setPanel] = useState({
         isExpanded: false,
         timeClosed: 0,
@@ -29,7 +29,7 @@ const Notification = (props: IProps) => {
         setNewMessagesCount(prevCount => prevCount + newUniqueMessages.length);
         setMessages(prevMessages => [...prevMessages, ...newUniqueMessages]);
         if (panelRef.current) {
-            setPanel(panel => ({ ...panel, isBottomScrolled: checkIsPanelBottomScrolled(panelRef) }))
+            setPanel(prevPanel => ({ ...prevPanel, isBottomScrolled: checkIsPanelBottomScrolled(panelRef) }));
         }
     }, [props.messages])
 
@@ -43,8 +43,8 @@ const Notification = (props: IProps) => {
         if (panel.isExpanded) {
             scrollToPanelBottom(panelRef)
         } else {
-            setPanel(panel => ({
-                ...panel,
+            setPanel(prevPanel => ({
+                ...prevPanel,
                 timeClosed: Date.now(),
                 isBottomScrolled: false
             }));
@@ -52,7 +52,7 @@ const Notification = (props: IProps) => {
         }
     }, [panel.isExpanded])
 
-    const onPanelToggleClick = (): void => setPanel(panel => ({ ...panel, isExpanded: !panel.isExpanded }));
+    const onPanelToggleClick = (): void => setPanel(prevPanel => ({ ...prevPanel, isExpanded: !panel.isExpanded }));
 
     return (
         <div className="notification">
