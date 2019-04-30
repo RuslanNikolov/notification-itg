@@ -9,7 +9,7 @@
 }
 
 .notification-message.highlighted {
-    border-left: 4px solid #4b89ed;
+    border-left: 5px solid #4b89ed;
 }
 
 .notification-message__time {

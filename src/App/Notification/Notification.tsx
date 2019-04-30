@@ -16,13 +16,10 @@ const Notification = (props: IProps) => {
     const [messages, setMessages] = useState([] as IMessage[]);
     const [newMessagesCount, setNewMessagesCount] = useState(0);
 
-    const [isPanelExpanded, setIsPanelExpanded] = useState(false);
-    const [isPanelBottomScrolled, setIsPanelBottomScrolled] = useState(false)
-    const [timePanelClosed, setTimePanelClosed] = useState(0);
     const [panel, setPanel] = useState({
-        timeClosed: 0,
         isExpanded: false,
-        isPaneScrolledBottom: false
+        timeClosed: 0,
+        isBottomScrolled: false
     })
 
     const panelRef = useRef(null as any);
@@ -32,40 +29,43 @@ const Notification = (props: IProps) => {
         setNewMessagesCount(prevCount => prevCount + newUniqueMessages.length);
         setMessages(prevMessages => [...prevMessages, ...newUniqueMessages]);
         if (panelRef.current) {
-            setIsPanelBottomScrolled(checkIsPanelBottomScrolled(panelRef))
+            setPanel(panel => ({ ...panel, isBottomScrolled: checkIsPanelBottomScrolled(panelRef) }))
         }
     }, [props.messages])
 
     useLayoutEffect(() => {
-        if (isPanelBottomScrolled) {
+        if (panel.isBottomScrolled) {
             scrollToPanelBottom(panelRef)
         }
     }, [messages])
 
     useEffect(() => {
-        if (isPanelExpanded) {
+        if (panel.isExpanded) {
             scrollToPanelBottom(panelRef)
         } else {
-            setTimePanelClosed(Date.now());
+            setPanel(panel => ({
+                ...panel,
+                timeClosed: Date.now(),
+                isBottomScrolled: false
+            }));
             setNewMessagesCount(0);
-            setIsPanelBottomScrolled(false)
         }
-    }, [isPanelExpanded])
+    }, [panel.isExpanded])
 
-    const onPanelToggleClick = (): void => setIsPanelExpanded(prevExpanded => !prevExpanded);
+    const onPanelToggleClick = (): void => setPanel(panel => ({ ...panel, isExpanded: !panel.isExpanded }));
 
     return (
         <div className="notification">
             <div className="notification__panel" onClick={onPanelToggleClick}>
                 <h3 className="notification__panel__label">{MESSAGES_LABEL}</h3>
-                {isPanelExpanded
+                {panel.isExpanded
                     ? <span className="notification__panel__cross">✖</span>
                     : <span className="notification__panel__notify-circle">{formatMessageCount(newMessagesCount)}</span>
                 }
             </div>
-            {isPanelExpanded &&
+            {panel.isExpanded &&
                 <div className="notification__messages" ref={panelRef}>
-                    {messages.map((message: IMessage) => <Message message={message} isHighlighted={message.timestamp > timePanelClosed} key={message.timestamp} />)}
+                    {messages.map((message: IMessage) => <Message message={message} isHighlighted={message.timestamp > panel.timeClosed} key={message.timestamp} />)}
                 </div>
             }
         </div>
