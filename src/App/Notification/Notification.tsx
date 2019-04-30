@@ -43,12 +43,12 @@ const Notification = (props: IProps) => {
         if (panel.isExpanded) {
             scrollToPanelBottom(panelRef)
         } else {
+            setNewMessagesCount(0);
             setPanel(prevPanel => ({
                 ...prevPanel,
                 timeClosed: Date.now(),
                 isBottomScrolled: false
             }));
-            setNewMessagesCount(0);
         }
     }, [panel.isExpanded])
 
