@@ -71,6 +71,13 @@ const Notification = (props: IProps) => {
     )
 }
 
-const formatMessageCount = (count: number): string => count < 1000 ? `${count}` : `${Math.floor(count / 1000)}K`
+const formatMessageCount = (count: number): string => {
+    if (count < 1000) {
+        return `${count}`
+    } else {
+        const [thousands, hundreds] = [Math.floor(count / 1000), Math.floor(count / 100 % 10)]
+        return `${thousands}.${hundreds}K`
+    }
+}
 
 export default memo(Notification)
