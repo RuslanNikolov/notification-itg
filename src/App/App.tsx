@@ -17,5 +17,4 @@ const App = (props: any) => {
   );
 }
 
-
 export default App;

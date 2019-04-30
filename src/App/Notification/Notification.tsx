@@ -53,8 +53,6 @@ const Notification = (props: IProps) => {
 
     const getIsMessagesBottomScrolled = (): boolean => messagesRef.current.scrollTop >= ((messagesRef.current.scrollHeight - messagesRef.current.offsetHeight) - BROWSER_SCROLL_RANDOM_OFFSET)
 
-    const formatMessageCount = (count: number): string => count < 1000 ? `${count}` : `${Math.floor(count / 1000)}K`
-
     return (
         <div className="notification">
             <div className="notification__panel" onClick={onTogglePanelClick}>
@@ -72,5 +70,7 @@ const Notification = (props: IProps) => {
         </div>
     )
 }
+
+const formatMessageCount = (count: number): string => count < 1000 ? `${count}` : `${Math.floor(count / 1000)}K`
 
 export default memo(Notification)
