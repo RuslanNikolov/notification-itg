@@ -1,9 +1,9 @@
 .notification {
-    z-index: 1000;
     right: 180px;
     bottom: 0;
-    overflow: hidden;
+    z-index: 1000;
     width: 325px;
+    overflow: hidden;
     border-radius: 10px 10px 0 0;
     box-shadow: 0 0 10px lightgray;
     position: absolute;
@@ -17,7 +17,7 @@
     background-color: #f4f7fc;
     box-shadow: 0 2px 5px #d6d8db;
     cursor: pointer;
-    transition: background-color .2s;
+    transition: background-color 0.2s;
 }
 
 .notification__panel:hover {
@@ -41,15 +41,15 @@
     width: 32px;
     padding-bottom: 6px;
     color: white;
-    border-radius: 50%;
-    background-color: #4b89ed;
-    font-size: .875rem;
     font-weight: bold;
+    font-size: 0.875rem;
     text-align: center;
+    background-color: #4b89ed;
+    border-radius: 50%;
 }
 
 .notification__messages {
+    height: 330px;
     overflow-x: hidden;
     overflow-y: visible;
-    height: 330px;
 }
