@@ -1,5 +1,4 @@
 .notification {
-    position: absolute;
     z-index: 1000;
     right: 180px;
     bottom: 0;
@@ -7,6 +6,7 @@
     width: 325px;
     border-radius: 10px 10px 0 0;
     box-shadow: 0 0 10px lightgray;
+    position: absolute;
 }
 
 .notification__panel {
