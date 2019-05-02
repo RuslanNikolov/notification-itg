@@ -6,7 +6,6 @@ import Message from './Message/Message';
 import { removeDuplicatesFromTwoArrays } from '../utils'
 
 const MESSAGES_LABEL: string = 'Messages';
-const BROWSER_SCROLL_RANDOM_OFFSET: number = 2; // Resolves unpredictable scroll to bottom browser behaviour
 
 export interface IProps {
     messages: IMessage[]
@@ -15,13 +14,12 @@ export interface IProps {
 const Notification = (props: IProps) => {
     const [messages, setMessages] = useState([] as IMessage[]);
     const [newMessagesCount, setNewMessagesCount] = useState(0);
-     
+
     const [panel, setPanel] = useState({
         isExpanded: false,
         timeClosed: 0,
         isBottomScrolled: false
     })
-
     const panelRef = useRef(null as any);
 
     useEffect(() => {
@@ -74,6 +72,7 @@ const Notification = (props: IProps) => {
 
 const scrollToPanelBottom = (panelRef: any): void => panelRef.current.scrollTop = panelRef.current.scrollHeight
 
+const BROWSER_SCROLL_RANDOM_OFFSET: number = 2; // Resolves unpredictable scroll to bottom browser behaviour
 const checkIsPanelBottomScrolled = (panelRef: any): boolean => panelRef.current.scrollTop >= ((panelRef.current.scrollHeight - panelRef.current.offsetHeight) - BROWSER_SCROLL_RANDOM_OFFSET)
 
 const formatMessageCount = (count: number): string => {
