@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { FC, memo } from 'react'
 import './Message.css'
 
 export interface IMessage {
@@ -6,12 +6,12 @@ export interface IMessage {
   timestamp: number
 }
 
-interface IProps {
+interface Props {
   message: IMessage,
   isHighlighted: boolean
 }
 
-const Message = (props: IProps) => {
+const Message: FC<Props> = (props) => {
   const { text, timestamp } = props.message;
 
   return (

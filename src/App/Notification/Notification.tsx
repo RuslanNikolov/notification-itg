@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect, useRef, memo } from 'react'
+import React, { FC, useState, useEffect, useLayoutEffect, useRef, memo, MutableRefObject } from 'react'
 import './Notification.css'
 
 import { IMessage } from './Message/Message';
@@ -7,20 +7,25 @@ import { removeDuplicatesFromTwoArrays } from '../utils'
 
 const MESSAGES_LABEL: string = 'Messages';
 
-export interface IProps {
+interface IPanel {
+    isExpanded: boolean,
+    timeClosed: number,
+    isBottomScrolled: boolean
+}
+interface Props {
     messages: IMessage[]
 }
 
-const Notification = (props: IProps) => {
-    const [messages, setMessages] = useState([] as IMessage[]);
+const Notification: FC<Props> = (props) => {
+    const [messages, setMessages] = useState<IMessage[]>([]);
     const [newMessagesCount, setNewMessagesCount] = useState(0);
 
-    const [panel, setPanel] = useState({
+    const [panel, setPanel] = useState<IPanel>({
         isExpanded: false,
         timeClosed: 0,
         isBottomScrolled: false
     })
-    const panelRef = useRef(null as any);
+    const panelRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const newUniqueMessages = removeDuplicatesFromTwoArrays(messages, props.messages);
@@ -50,7 +55,7 @@ const Notification = (props: IProps) => {
         }
     }, [panel.isExpanded])
 
-    const onPanelToggleClick = (): void => setPanel(prevPanel => ({ ...prevPanel, isExpanded: !panel.isExpanded }));
+    const onPanelToggleClick = () => setPanel(prevPanel => ({ ...prevPanel, isExpanded: !panel.isExpanded }));
 
     return (
         <div className="notification">
@@ -70,7 +75,7 @@ const Notification = (props: IProps) => {
     )
 }
 
-const scrollToPanelBottom = (panelRef: any): void => panelRef.current.scrollTop = panelRef.current.scrollHeight
+const scrollToPanelBottom = (panelRef: MutableRefObject<any>) => panelRef.current.scrollTop = panelRef.current.scrollHeight
 
 const BROWSER_SCROLL_RANDOM_OFFSET: number = 2; // Resolves unpredictable scroll to bottom browser behaviour
 const checkIsPanelBottomScrolled = (panelRef: any): boolean => panelRef.current.scrollTop >= ((panelRef.current.scrollHeight - panelRef.current.offsetHeight) - BROWSER_SCROLL_RANDOM_OFFSET)

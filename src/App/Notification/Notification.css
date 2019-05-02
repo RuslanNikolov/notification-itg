@@ -1,12 +1,12 @@
 .notification {
+  position: absolute;
   right: 180px;
-  border-radius: 10px 10px 0 0;
+  bottom: 0;
   z-index: 1000;
   width: 325px;
   overflow: hidden;
+  border-radius: 10px 10px 0 0;
   box-shadow: 0 0 10px lightgray;
-  bottom: 0;
-  position: absolute;
 }
 
 .notification__panel {

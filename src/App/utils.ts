@@ -1,4 +1,4 @@
-import { IMessage} from './Notification/Message/Message'
+import { IMessage } from './Notification/Message/Message'
 //@ts-ignore
 import { loremIpsum } from 'lorem-ipsum'
 
@@ -6,7 +6,7 @@ export const getMockMessages = (): IMessage[] => {
     const randomMessagesCount: number = Math.floor(Math.random() * 3) + 1
 
     const mockMessages: IMessage[] = Array(randomMessagesCount).fill('memes').map((str, idx) => ({
-        text:  loremIpsum({count: idx, units: 'words'}),
+        text: loremIpsum({ count: idx, units: 'words' }),
         timestamp: Date.now() + idx
     }))
 
