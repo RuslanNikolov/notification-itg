@@ -24,8 +24,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "stylelint": "stylelint \"src/**/*.css\" --fix",
-    "watch": "npm-watch"
+    "stylelint": "stylelint \"src/**/*.css\" --fix"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -40,6 +39,7 @@
     "pre-commit": "^1.2.2",
     "stylelint": "^10.0.1",
     "stylelint-config-rational-order": "^0.1.2",
+    "stylelint-config-standard": "^18.3.0",
     "stylelint-order": "^3.0.0"
   }
 }
