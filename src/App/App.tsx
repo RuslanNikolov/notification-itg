@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import './App.css';
 import Notification from './Notification/Notification'
 import { getMockMessages } from './utils'
 
-const App = (props: any) => {
+const App: FC<any> = (props) => {
   const [mockMessages, setMockMessages] = useState(getMockMessages())
 
   useEffect(() => {

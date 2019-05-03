@@ -6,12 +6,12 @@ export interface IMessage {
   timestamp: number
 }
 
-interface Props {
+interface IProps {
   message: IMessage,
   isHighlighted: boolean
 }
 
-const Message: FC<Props> = (props) => {
+const Message: FC<IProps> = (props) => {
   const { text, timestamp } = props.message;
 
   return (

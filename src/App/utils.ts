@@ -16,7 +16,7 @@ export const getMockMessages = (): IMessage[] => {
     return mockMessages;
 }
 
-export const removeDuplicatesFromTwoArrays = (prevArray: any[], newArray: any[]): any[] => {
+export const removeDuplicatesFromTwoArrays = <T>(prevArray: T[], newArray: T[]): T[] => {
     const uniqueArray = []
     let isDuplicate = false;
 

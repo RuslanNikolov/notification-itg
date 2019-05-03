@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useLayoutEffect, useRef, memo, MutableRefObject } from 'react'
+import React, { FC, useState, useEffect, useLayoutEffect, useRef, memo, RefObject } from 'react'
 import './Notification.css'
 
 import { IMessage } from './Message/Message';
@@ -12,11 +12,11 @@ interface IPanel {
     timeClosed: number,
     isBottomScrolled: boolean
 }
-interface Props {
+interface IProps {
     messages: IMessage[]
 }
 
-const Notification: FC<Props> = (props) => {
+const Notification: FC<IProps> = (props) => {
     const [messages, setMessages] = useState<IMessage[]>([]);
     const [newMessagesCount, setNewMessagesCount] = useState(0);
 
@@ -25,7 +25,7 @@ const Notification: FC<Props> = (props) => {
         timeClosed: 0,
         isBottomScrolled: false
     })
-    const panelRef = useRef<HTMLDivElement>(null);
+    const panelRef: RefObject<HTMLDivElement> = useRef(null);
 
     useEffect(() => {
         const newUniqueMessages = removeDuplicatesFromTwoArrays(messages, props.messages);
@@ -75,7 +75,7 @@ const Notification: FC<Props> = (props) => {
     )
 }
 
-const scrollToPanelBottom = (panelRef: MutableRefObject<any>) => panelRef.current.scrollTop = panelRef.current.scrollHeight
+export const scrollToPanelBottom = (panelRef: RefObject<any>) => panelRef.current.scrollTop = panelRef.current.scrollHeight
 
 const BROWSER_SCROLL_RANDOM_OFFSET: number = 2; // Resolves unpredictable scroll to bottom browser behaviour
 const checkIsPanelBottomScrolled = (panelRef: any): boolean => panelRef.current.scrollTop >= ((panelRef.current.scrollHeight - panelRef.current.offsetHeight) - BROWSER_SCROLL_RANDOM_OFFSET)
