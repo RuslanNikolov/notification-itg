@@ -5,7 +5,7 @@ import { IMessage } from './Message/Message';
 import Message from './Message/Message';
 import { removeDuplicatesFromTwoArrays } from '../utils'
 
-const MESSAGES_LABEL: string = 'Messages';
+const MESSAGES_LABEL = 'Messages';
 
 interface IPanel {
     isExpanded: boolean,
@@ -55,7 +55,7 @@ const Notification: FC<IProps> = (props) => {
         }
     }, [panel.isExpanded])
 
-    const onPanelToggleClick = () => setPanel(prevPanel => ({ ...prevPanel, isExpanded: !panel.isExpanded }));
+    const onPanelToggleClick = () => setPanel(prevPanel => ({ ...prevPanel, isExpanded: !prevPanel.isExpanded }));
 
     return (
         <div className="notification">
@@ -75,7 +75,7 @@ const Notification: FC<IProps> = (props) => {
     )
 }
 
-export const scrollToPanelBottom = (panelRef: RefObject<any>) => panelRef.current.scrollTop = panelRef.current.scrollHeight
+export const scrollToPanelBottom = (panelRef: RefObject<HTMLElement>) => panelRef.current.scrollTop = panelRef.current.scrollHeight
 
 const BROWSER_SCROLL_RANDOM_OFFSET: number = 2; // Resolves unpredictable scroll to bottom browser behaviour
 const checkIsPanelBottomScrolled = (panelRef: any): boolean => panelRef.current.scrollTop >= ((panelRef.current.scrollHeight - panelRef.current.offsetHeight) - BROWSER_SCROLL_RANDOM_OFFSET)
